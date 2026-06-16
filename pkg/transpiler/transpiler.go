@@ -20,9 +20,10 @@ type Transpiler struct {
 	usaSync     bool                      // V2: precisa importar "sync"
 	imports     map[string]bool           // V2: pacotes a importar (ex: Matematica)
 	erros       []string                  // V2: erros de compilação
-	usaWeb      bool                      // V3: precisa importar net/http
-	servidores  map[string]bool           // V3: servidores declarados
-	rotasWeb    map[string]map[string]bool // V3: rotas registradas por servidor (path->bool)
+	usaWeb              bool                      // V3: precisa importar net/http
+	servidores          map[string]bool           // V3: servidores declarados
+	servidoresIniciados map[string]bool           // V3: servidores que serão iniciados
+	rotasWeb            map[string]map[string]bool // V3: rotas registradas por servidor (path->bool)
 }
 
 // Novo cria um novo Transpiler.
@@ -32,8 +33,9 @@ func Novo() *Transpiler {
 		imutaveis: make(map[string]bool),
 		entidades: make(map[string][]ast.CampoEntidade),
 		imports:   make(map[string]bool),
-		servidores: make(map[string]bool),
-		rotasWeb:   make(map[string]map[string]bool),
+		servidores:          make(map[string]bool),
+		servidoresIniciados: make(map[string]bool),
+		rotasWeb:            make(map[string]map[string]bool),
 	}
 }
 
@@ -71,9 +73,9 @@ func (t *Transpiler) Transpilar(programa *ast.Programa) (string, error) {
 		if inc, ok := decl.(*ast.DeclaracaoIncluir); ok {
 			t.imports[inc.Pacote] = true
 		}
-		switch decl.(type) {
-		case *ast.DeclaracaoServidor, *ast.DeclaracaoRota, *ast.DeclaracaoIniciarServidor:
+		if iniciar, ok := decl.(*ast.DeclaracaoIniciarServidor); ok {
 			t.usaWeb = true
+			t.servidoresIniciados[iniciar.Servidor] = true
 		}
 	}
 
@@ -87,6 +89,7 @@ func (t *Transpiler) Transpilar(programa *ast.Programa) (string, error) {
 		if t.usaWeb {
 			t.escreverLinha("\t\"net/http\"")
 			t.escreverLinha("\t\"os\"")
+			t.escreverLinha("\t\"strconv\"")
 		}
 		if t.usaSync {
 			t.escreverLinha("\t\"sync\"")
@@ -210,9 +213,15 @@ func (t *Transpiler) transpilarDeclaracao(decl ast.Declaracao) {
 // -----------------------------------------------
 
 func (t *Transpiler) transpilarDeclaracaoServidor(d *ast.DeclaracaoServidor) {
+	// Se o servidor nunca for iniciado, não gerar código (evita variáveis não usadas)
+	if !t.servidoresIniciados[d.Nome] {
+		return
+	}
+
 	// Criar um *http.ServeMux e uma config simples (host/porta)
 	// mux: <nome>_mux
 	muxNome := fmt.Sprintf("%s_mux", d.Nome)
+	hostNome := fmt.Sprintf("%s_host", d.Nome)
 	addrNome := fmt.Sprintf("%s_addr", d.Nome)
 	portNome := fmt.Sprintf("%s_porta", d.Nome)
 
@@ -228,12 +237,14 @@ func (t *Transpiler) transpilarDeclaracaoServidor(d *ast.DeclaracaoServidor) {
 	// permitir override via env (usado por `verbo servir`)
 	t.escreverIndentado(fmt.Sprintf("%s := %s", portNome, porta))
 	t.saida.WriteString("\n")
-	t.escreverIndentado(fmt.Sprintf("if v := os.Getenv(%q); v != %q { %s = v }", "VERBO_PORTA", "", portNome))
+	t.escreverIndentado(fmt.Sprintf("if v := os.Getenv(%q); v != %q { %s, _ = strconv.Atoi(v) }", "VERBO_PORTA", "", portNome))
 	t.saida.WriteString("\n")
 
-	t.escreverIndentado(fmt.Sprintf("if v := os.Getenv(%q); v != %q { %s = v }", "VERBO_HOST", "", end))
+	t.escreverIndentado(fmt.Sprintf("%s := %q", hostNome, end))
 	t.saida.WriteString("\n")
-	t.escreverIndentado(fmt.Sprintf("%s := fmt.Sprintf(\"%s:%%v\", %s)", addrNome, end, portNome))
+	t.escreverIndentado(fmt.Sprintf("if v := os.Getenv(%q); v != %q { %s = v }", "VERBO_HOST", "", hostNome))
+	t.saida.WriteString("\n")
+	t.escreverIndentado(fmt.Sprintf("%s := fmt.Sprintf(\"%%s:%%v\", %s, %s)", addrNome, hostNome, portNome))
 	t.saida.WriteString("\n")
 
 	// marcar servidor existente
@@ -250,11 +261,13 @@ func (t *Transpiler) transpilarDeclaracaoServidor(d *ast.DeclaracaoServidor) {
 }
 
 func (t *Transpiler) transpilarDeclaracaoRota(d *ast.DeclaracaoRota) {
-	// A implementação atual do parser fixa Servidor="servidor".
-	// Aqui: usar sempre o mux do servidor padrão.
+	// Se o servidor nunca for iniciado, não gerar código (evita variáveis não usadas)
 	servidor := d.Servidor
 	if servidor == "" {
 		servidor = "servidor"
+	}
+	if !t.servidoresIniciados[servidor] {
+		return
 	}
 	muxNome := fmt.Sprintf("%s_mux", servidor)
 
@@ -311,6 +324,10 @@ func (t *Transpiler) transpilarDeclaracaoIniciarServidor(d *ast.DeclaracaoInicia
 	servidor := d.Servidor
 	if servidor == "" {
 		servidor = "servidor"
+	}
+	// Já verificado na primeira passada, mas segurança extra
+	if !t.servidoresIniciados[servidor] {
+		return
 	}
 	addrNome := fmt.Sprintf("%s_addr", servidor)
 	muxNome := fmt.Sprintf("%s_mux", servidor)

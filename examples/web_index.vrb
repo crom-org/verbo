@@ -1,2 +1,3 @@
 Um app está Servidor com (local, 8099).
-app iniciar.
+Exibir com ("Servidor configurado para local:8099").
+Exibir com ("Use 'verbo servir web_index.vrb' para executar.").

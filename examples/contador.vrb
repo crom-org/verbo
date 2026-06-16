@@ -9,5 +9,6 @@ Um contador está 10.
 Repita 10 vezes:
     Exibir com (contador).
     contador está contador - 1.
+.
 
 Exibir com ("Lançamento!").

@@ -5,6 +5,7 @@ A boas_vindas é "Bem-vindo ao sistema Verbo!".
 
 Para Apresentar usando (nome: Texto):
     Exibir com (nome).
+.
 
 Exibir com (boas_vindas).
 Apresentar com ("Brasil").
