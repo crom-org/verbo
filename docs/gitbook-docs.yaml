@@ -1,0 +1,8 @@
+root: "."
+structure:
+  readme: "README.md"
+  summary: "SUMMARY.md"
+title: "Documentação Oficial da Linguagem Verbo"
+description: "A linguagem de programação baseada na norma culta do Português Brasileiro."
+language: "pt-BR"
+
