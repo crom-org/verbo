@@ -36,7 +36,7 @@ Para BoasVindas usando (usuario: Usuario) :
 .
 
 // Bloco principal
-O admin é um novo Usuario contendo ("Ada Lovelace", "ada@verbo.dev", 1).
+O admin é um novo Usuario contendo ("Ada Lovelace", "ada@exemplo.com", 1).
 BoasVindas com (admin).
 
 // Criptografia e identificadores seguros

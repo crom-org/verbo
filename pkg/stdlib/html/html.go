@@ -135,7 +135,7 @@ func CriarTabela(headersRaw interface{}, linhasRaw interface{}) string {
 
 // CriarLink cria um link HTML.
 //
-// Exemplo: CriarLink("https://verbo.dev", "Verbo") → <a href="https://verbo.dev">Verbo</a>
+// Exemplo: CriarLink("https://github.com/crom-org/verbo", "Verbo") → <a href="https://github.com/crom-org/verbo">Verbo</a>
 func CriarLink(url, texto string) string {
 	return fmt.Sprintf(`<a href="%s">%s</a>`, url, texto)
 }

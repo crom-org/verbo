@@ -70,7 +70,7 @@ Para BoasVindas usando (usuario: Usuario):
     Exibir "Bem-vindo(a), " + nome_formatado + "!".
 .
 
-O admin é um novo Usuario contendo ("Ada Lovelace", "ada@verbo.dev", 1).
+O admin é um novo Usuario contendo ("Ada Lovelace", "ada@exemplo.com", 1).
 BoasVindas com (admin).
 ```
 

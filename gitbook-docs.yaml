@@ -1,13 +1,15 @@
 # ==============================================================================
 # GitBook Documentation Configuration — Linguagem Verbo
 # ==============================================================================
+# Formato: sites-first (GitBook 5.x+)
+# Documentação oficial da linguagem Verbo
+# ==============================================================================
 
-# Informações gerais da documentação
-name: "verbo"
-title: "Documentação Oficial da Linguagem Verbo"
-description: "A linguagem de programação transpilada para Go baseada na gramática da norma culta do Português Brasileiro."
-author: "Juan / Projeto Crom"
-language: "pt-BR"
+site:
+  title: "Linguagem Verbo"
+  description: "A linguagem de programação transpilada para Go baseada na gramática da norma culta do Português Brasileiro."
+  author: "Crom"
+  language: "pt-BR"
 
 # Diretório raiz dos arquivos markdown e estrutura principal
 root: "./docs"
@@ -21,21 +23,19 @@ gitbook: "5.x.x"
 # Configuração de temas e estilos visuais
 theme:
   colors:
-    primary: "#009739"    # Verde Brasil
-    secondary: "#FFDF00"  # Amarelo Ouro
-    highlight: "#00ff88"  # Verde Neon
+    primary: "#009739"
+    secondary: "#FFDF00"
+    highlight: "#00ff88"
 
 # Plugins recomendados para renderização
 plugins:
-  - prism                 # Realce de sintaxe com temas escuros
-  - mermaid               # Diagramas de arquitetura e fluxogramas
-  - search                # Motor de busca indexado
-  - anchorjs              # Links de âncora nos títulos
-  - copy-code-button      # Botão de copiar código em blocos
+  - prism
+  - mermaid
+  - search
+  - anchorjs
+  - copy-code-button
 
 # Links externos e repositório
 links:
   sidebar:
-    "Repositório GitHub": "https://github.com/MrJc01/crom-verbo"
-    "Portal Oficial": "https://verbo.dev"
-
+    "Repositório GitHub": "https://github.com/crom-org/verbo"

@@ -84,8 +84,8 @@ func TestCriarLista(t *testing.T) {
 }
 
 func TestCriarLink(t *testing.T) {
-	resultado := CriarLink("https://verbo.dev", "Verbo")
-	esperado := `<a href="https://verbo.dev">Verbo</a>`
+	resultado := CriarLink("https://github.com/crom-org/verbo", "Verbo")
+	esperado := `<a href="https://github.com/crom-org/verbo">Verbo</a>`
 	if resultado != esperado {
 		t.Errorf("esperava %q, obteve %q", esperado, resultado)
 	}

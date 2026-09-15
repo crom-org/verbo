@@ -36,7 +36,7 @@ O pagina é CriarPagina de Html com ("Meu Portfólio", "<h1>Bem-vindo ao Verbo!<
 Exibir com (pagina).
 
 O botao é CriarElemento de Html com ("button", "Clique aqui").
-O link é CriarLink de Html com ("https://github.com/MrJc01/crom-verbo", "GitHub do Verbo").
+O link é CriarLink de Html com ("https://github.com/crom-org/verbo", "GitHub do Verbo").
 O img é CriarImagem de Html com ("/static/logo.png", "Logo Verbo").
 
 Exibir botao.

@@ -21,7 +21,7 @@ go version
 Clone o repositório oficial e faça o build do binário:
 
 ```bash
-git clone https://github.com/MrJc01/crom-verbo.git
+git clone https://github.com/crom-org/verbo.git
 cd crom-verbo
 
 # Compila o binário do CLI

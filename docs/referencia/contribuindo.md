@@ -16,7 +16,7 @@ Agradecemos o seu interesse em contribuir com a **Linguagem Verbo**! Este guia d
 
 ```bash
 # 1. Clone o repositório
-git clone https://github.com/MrJc01/crom-verbo.git
+git clone https://github.com/crom-org/verbo.git
 cd crom-verbo
 
 # 2. Compile o CLI localmente
@@ -78,4 +78,4 @@ make test
 ## 6. Reportando Problemas e Dúvidas
 
 Encontrou um erro no compilador ou tem uma sugestão de melhoria sintática? Abra uma issue no repositório oficial:
-👉 [GitHub Issues — crom-verbo](https://github.com/MrJc01/crom-verbo/issues)
+👉 [GitHub Issues — crom-verbo](https://github.com/crom-org/verbo/issues)

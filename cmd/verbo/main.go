@@ -888,6 +888,6 @@ Exemplos:
   verbo compilar calculadora.vrb
   verbo verificar meu_programa.vrb
 
-Para mais informações: https://github.com/MrJc01/crom-verbo
+Para mais informações: https://github.com/crom-org/verbo
 `, versao)
 }
