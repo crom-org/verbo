@@ -1,0 +1,36 @@
+// Exemplo de uso do módulo Internet na BibVerbo
+Incluir Internet.
+
+Exibir "--- 1. Utilitários de Rede e DNS ---".
+O ip_local é ObterIPLocal de Internet com ().
+Exibir "IP local da máquina: " + ip_local.
+
+O ips é ResolverHost de Internet com ("localhost").
+Exibir "Resolução DNS de localhost:".
+Exibir ips.
+
+Exibir "--- 2. Comunicação via Sockets TCP ---".
+// Iniciar escuta TCP
+O ouvinte é OuvirTCP de Internet com ("127.0.0.1:9876").
+O endereco_tcp é ObterEndereco de ouvinte com ().
+Exibir "Servidor TCP iniciado no endereço: " + endereco_tcp.
+
+// Conectar cliente TCP
+O cliente é ConectarTCP de Internet com ("127.0.0.1:9876").
+O atendente é Aceitar de ouvinte com ().
+
+// Troca de mensagens
+EnviarLinha de cliente com ("Olá do Verbo!").
+O recebido é LerLinha de atendente com ().
+Exibir "Servidor TCP recebeu: " + recebido.
+
+EnviarLinha de atendente com ("Mensagem recebida com sucesso!").
+O resposta_cliente é LerLinha de cliente com ().
+Exibir "Cliente TCP recebeu confirmação: " + resposta_cliente.
+
+// Fechando conexões
+Fechar de cliente com ().
+Fechar de atendente com ().
+Fechar de ouvinte com ().
+Exibir "Conexões TCP encerradas com sucesso.".
+

@@ -307,7 +307,7 @@ Exibir com (nome de prod).`
 func TestTranspilarImutabilidade(t *testing.T) {
 	entrada := `A x é 10.
 x está 20.`
-	
+
 	lex := lexer.Novo(entrada)
 	tokens, _ := lex.Tokenizar()
 	p := parser.Novo(tokens)
@@ -315,7 +315,7 @@ x está 20.`
 
 	trans := Novo()
 	_, err := trans.Transpilar(programa)
-	
+
 	if err == nil {
 		t.Fatal("esperava erro semântico de imutabilidade, mas compilou com sucesso")
 	}
@@ -327,6 +327,7 @@ x está 20.`
 
 // Ensure imports are used
 var _ = ast.Programa{}
+
 func TestTranspilarCanais(t *testing.T) {
 	codigo := `
 	Uma via é um Canal de Inteiros.
@@ -352,15 +353,23 @@ func TestTranspilarCanais(t *testing.T) {
 func TestTranspilarIncluir(t *testing.T) {
 	codigo := `
 	Incluir Matematica.
+	Incluir Internet.
+	Incluir Criptografia.
 	Incluir ExemploCustom.
 	O valor é 10.
+	O resp é Obter de Internet com ("http://localhost").
+	O hash é Sha256 de Criptografia com ("teste").
 	`
 	codigoGerado := transpilarCodigo(t, codigo)
 
 	esperados := []string{
 		`"github.com/juanxto/crom-verbo/pkg/stdlib/matematica"`,
+		`"github.com/juanxto/crom-verbo/pkg/stdlib/internet"`,
+		`"github.com/juanxto/crom-verbo/pkg/stdlib/criptografia"`,
 		`"exemplocustom"`,
 		`valor := 10`,
+		`resp := internet.Obter("http://localhost")`,
+		`hash := criptografia.Sha256("teste")`,
 	}
 
 	for _, esp := range esperados {

@@ -682,6 +682,32 @@ func (p *Parser) analisarDeclaracaoIdentificador() ast.Declaracao {
 		}
 	}
 
+	// Chamada de método com receptor: "Metodo de Objeto com (args)."
+	if p.tokenAtual().Tipo == lexer.TOKEN_DE {
+		p.avancar() // consome "de"/"do"/"da"
+		p.pularConectivos()
+		if p.tokenAtual().Tipo == lexer.TOKEN_IDENTIFICADOR || p.tokenAtual().Tipo == lexer.TOKEN_TIPO {
+			objTok := p.avancar()
+			var args []ast.Expressao
+			if p.tokenAtual().Tipo == lexer.TOKEN_COM {
+				p.avancar()
+				args = p.analisarArgumentos()
+			} else if p.ehInicioExpressao(p.espiarComConectivos()) {
+				args = p.analisarArgumentos()
+			}
+			p.consumirPonto()
+			return &ast.DeclaracaoExpressao{
+				Token: tok,
+				Expressao: &ast.ExpressaoChamadaFuncao{
+					Token:      tok,
+					Nome:       tok.Valor,
+					Objeto:     &ast.ExpressaoIdentificador{Token: objTok, Nome: objTok.Valor},
+					Argumentos: args,
+				},
+			}
+		}
+	}
+
 	// Chamada de função: "Funcao com (args)" ou "Funcao obj para obj"
 	if p.tokenAtual().Tipo == lexer.TOKEN_COM || p.ehInicioExpressao(p.espiarComConectivos()) {
 		if p.tokenAtual().Tipo == lexer.TOKEN_COM {
@@ -1025,7 +1051,7 @@ func (p *Parser) pularConectivos() {
 func (p *Parser) analisarExpressaoPrimaria() ast.Expressao {
 	// Pular artigos ou preposições soltas antes da expressão primária
 	p.pularConectivos()
-	
+
 	tok := p.tokenAtual()
 
 	switch tok.Tipo {
@@ -1181,10 +1207,8 @@ func (p *Parser) analisarArgumentos() []ast.Expressao {
 	if p.tokenAtual().Tipo != lexer.TOKEN_PARENTESE_ABRE {
 		// V2: Chamada natural sem parênteses, ex: Mover o bloco para o destino
 		for !p.fimDoArquivo() && p.tokenAtual().Tipo != lexer.TOKEN_PONTO {
-			fmt.Printf("DEBUG INICIO LOOP: token atual = %s (%q)\n", p.tokenAtual().Tipo.NomeLegivel(), p.tokenAtual().Valor)
 			p.pularConectivos()
-			fmt.Printf("DEBUG APOS PULAR: token atual = %s (%q)\n", p.tokenAtual().Tipo.NomeLegivel(), p.tokenAtual().Valor)
-			
+
 			// Se chegamos a um ponto ou fim, fim do comando
 			if p.tokenAtual().Tipo == lexer.TOKEN_PONTO || p.fimDoArquivo() {
 				break
@@ -1195,13 +1219,12 @@ func (p *Parser) analisarArgumentos() []ast.Expressao {
 				p.avancar()
 				continue
 			}
-			
+
 			// Devemos ter o início de uma expressão aqui
 			if !p.ehInicioAuxiliarExpressao(p.tokenAtual().Tipo) {
-				fmt.Printf("DEBUG: analisador quebrou no token: %s (valor: %q)\n", p.tokenAtual().Tipo.NomeLegivel(), p.tokenAtual().Valor)
 				break // encontrou algo inesperado, provavelmente fim da chamada
 			}
-			
+
 			arg := p.analisarExpressao()
 			if arg != nil {
 				args = append(args, arg)
@@ -1244,10 +1267,10 @@ func (p *Parser) analisarDeclaracaoEnviar() ast.Declaracao {
 	// Mas como 'analisarExpressao' lida com os artigos, não é estritamente necessário,
 	// porém é bom pular antes de tentar processar.
 	p.pularConectivos()
-	
+
 	valor := p.analisarExpressao()
 
-	// A preposição "para" é conectivo e será pulada se vier na frente de "via" 
+	// A preposição "para" é conectivo e será pulada se vier na frente de "via"
 	// por 'pularConectivos()', mas também podemos pular agora para chegar no identificador do canal.
 	p.pularConectivos()
 
@@ -1337,7 +1360,7 @@ func (p *Parser) analisarExpressaoInstanciacao() ast.Expressao {
 		p.avancar()
 		return nil
 	}
-	
+
 	tipo := p.avancar().Valor
 
 	// "contendo" é opcional

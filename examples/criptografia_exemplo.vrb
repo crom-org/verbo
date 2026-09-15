@@ -1,0 +1,57 @@
+// Exemplo de uso do módulo Criptografia na BibVerbo
+Incluir Criptografia.
+
+Exibir "--- 1. Hashes Criptográficos ---".
+O mensagem é "Linguagem Verbo".
+O hash256 é Sha256 de Criptografia com (mensagem).
+Exibir "SHA-256 de '" + mensagem + "':".
+Exibir hash256.
+
+O hash_md5 é Md5 de Criptografia com (mensagem).
+Exibir "MD5:".
+Exibir hash_md5.
+
+O token_hmac é HmacSha256 de Criptografia com ("minha_chave_secreta", mensagem).
+Exibir "HMAC-SHA256:".
+Exibir token_hmac.
+
+Exibir "--- 2. Codificação Base64 e Hex ---".
+O b64 é Base64Codificar de Criptografia com (mensagem).
+Exibir "Base64: " + b64.
+
+O restaurado é Base64Decodificar de Criptografia com (b64).
+Exibir "Restaurado: " + restaurado.
+
+Exibir "--- 3. Criptografia Simétrica AES ---".
+O segredo é "Informação confidencial do Verbo".
+O chave é "chave-mestra-2026".
+O texto_cifrado é CifrarAES de Criptografia com (chave, segredo).
+Exibir "Texto cifrado (AES-GCM):".
+Exibir texto_cifrado.
+
+O texto_decifrado é DecifrarAES de Criptografia com (chave, texto_cifrado).
+Exibir "Texto decifrado com sucesso:".
+Exibir texto_decifrado.
+
+Exibir "--- 4. Geração Aleatória Segura ---".
+O id_unico é GerarUUID de Criptografia com ().
+Exibir "UUID v4 gerado:".
+Exibir id_unico.
+
+O token_seguro é GerarToken de Criptografia com (24).
+Exibir "Token seguro (24 hex chars):".
+Exibir token_seguro.
+
+O senha_aleatoria é GerarTextoAleatorio de Criptografia com (12).
+Exibir "Senha alfanumérica segura:".
+Exibir senha_aleatoria.
+
+Exibir "--- 5. Utilidades Estatísticas ---".
+O numero_sorteado é NumeroAleatorio de Criptografia com (1, 100).
+Exibir "Número aleatório entre 1 e 100:".
+Exibir numero_sorteado.
+
+O booleano é BooleanoAleatorio de Criptografia com ().
+Exibir "Booleano aleatório:".
+Exibir booleano.
+

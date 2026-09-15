@@ -12,27 +12,27 @@ import (
 
 // Transpiler converte uma AST Verbo em código-fonte Go.
 type Transpiler struct {
-	saida       strings.Builder
-	indentacao  int
-	funcoes     map[string]bool           // rastreia funções declaradas
-	imutaveis   map[string]bool           // V2: rastreia variáveis imutáveis (decl. com 'é')
-	entidades   map[string][]ast.CampoEntidade // V2: rastreia entidades declaradas
-	usaSync     bool                      // V2: precisa importar "sync"
-	imports     map[string]bool           // V2: pacotes a importar (ex: Matematica)
-	erros       []string                  // V2: erros de compilação
-	usaWeb              bool                      // V3: precisa importar net/http
-	servidores          map[string]bool           // V3: servidores declarados
-	servidoresIniciados map[string]bool           // V3: servidores que serão iniciados
-	rotasWeb            map[string]map[string]bool // V3: rotas registradas por servidor (path->bool)
+	saida               strings.Builder
+	indentacao          int
+	funcoes             map[string]bool                // rastreia funções declaradas
+	imutaveis           map[string]bool                // V2: rastreia variáveis imutáveis (decl. com 'é')
+	entidades           map[string][]ast.CampoEntidade // V2: rastreia entidades declaradas
+	usaSync             bool                           // V2: precisa importar "sync"
+	imports             map[string]bool                // V2: pacotes a importar (ex: Matematica)
+	erros               []string                       // V2: erros de compilação
+	usaWeb              bool                           // V3: precisa importar net/http
+	servidores          map[string]bool                // V3: servidores declarados
+	servidoresIniciados map[string]bool                // V3: servidores que serão iniciados
+	rotasWeb            map[string]map[string]bool     // V3: rotas registradas por servidor (path->bool)
 }
 
 // Novo cria um novo Transpiler.
 func Novo() *Transpiler {
 	return &Transpiler{
-		funcoes:   make(map[string]bool),
-		imutaveis: make(map[string]bool),
-		entidades: make(map[string][]ast.CampoEntidade),
-		imports:   make(map[string]bool),
+		funcoes:             make(map[string]bool),
+		imutaveis:           make(map[string]bool),
+		entidades:           make(map[string][]ast.CampoEntidade),
+		imports:             make(map[string]bool),
 		servidores:          make(map[string]bool),
 		servidoresIniciados: make(map[string]bool),
 		rotasWeb:            make(map[string]map[string]bool),
@@ -56,10 +56,14 @@ func (t *Transpiler) Transpilar(programa *ast.Programa) (string, error) {
 		}
 		if tentativa, ok := decl.(*ast.DeclaracaoTente); ok {
 			if tentativa.Tentativa != nil {
-				for _, d := range tentativa.Tentativa.Declaracoes { checarSync(d) }
+				for _, d := range tentativa.Tentativa.Declaracoes {
+					checarSync(d)
+				}
 			}
 			if tentativa.Captura != nil {
-				for _, d := range tentativa.Captura.Declaracoes { checarSync(d) }
+				for _, d := range tentativa.Captura.Declaracoes {
+					checarSync(d)
+				}
 			}
 		}
 	}
@@ -82,7 +86,7 @@ func (t *Transpiler) Transpilar(programa *ast.Programa) (string, error) {
 	// Cabeçalho Go
 	t.escreverLinha("package main")
 	t.escreverLinha("")
-	
+
 	if len(t.imports) > 0 || t.usaSync || t.usaWeb {
 		t.escreverLinha("import (")
 		t.escreverLinha("\t\"fmt\"")
@@ -95,15 +99,19 @@ func (t *Transpiler) Transpilar(programa *ast.Programa) (string, error) {
 			t.escreverLinha("\t\"sync\"")
 		}
 		for imp := range t.imports {
-			switch imp {
-			case "Matematica":
+			switch strings.ToLower(imp) {
+			case "matematica":
 				t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/matematica\"")
-			case "Texto":
+			case "texto":
 				t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/texto\"")
-			case "Arquivo":
+			case "arquivo":
 				t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/arquivo\"")
-			case "Html":
+			case "html":
 				t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/html\"")
+			case "internet":
+				t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/internet\"")
+			case "criptografia":
+				t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/criptografia\"")
 			default:
 				// Fallback simplificado se não achar na BibVerbo: import direto
 				t.escreverLinha(fmt.Sprintf("\t%q", strings.ToLower(imp)))
@@ -554,12 +562,12 @@ func (t *Transpiler) transpilarDeclaracaoSimultaneamente(d *ast.DeclaracaoSimult
 	}
 
 	n := len(d.Corpo.Declaracoes)
-	
+
 	// Usar um bloco anônimo para escopar a variável wg
 	t.escreverIndentado("{")
 	t.saida.WriteString("\n")
 	t.indentacao++
-	
+
 	t.escreverIndentado("var wg sync.WaitGroup")
 	t.saida.WriteString("\n")
 	t.escreverIndentado(fmt.Sprintf("wg.Add(%d)", n))
@@ -579,7 +587,7 @@ func (t *Transpiler) transpilarDeclaracaoSimultaneamente(d *ast.DeclaracaoSimult
 
 	t.escreverIndentado("wg.Wait()")
 	t.saida.WriteString("\n")
-	
+
 	t.indentacao--
 	t.escreverIndentado("}")
 	t.saida.WriteString("\n")
@@ -688,13 +696,16 @@ func (t *Transpiler) transpilarExpressao(expr ast.Expressao) string {
 		// V2: Se tiver Objeto, gerar obj.Metodo(args)
 		if e.Objeto != nil {
 			objStr := t.transpilarExpressao(e.Objeto)
-			
+
 			// Se o objeto for um tipo primitivo (package importado), garantir que o package fique em minusculas,
 			// mas a função seja em maiúsculas ("Matematica de Absoluto" -> "matematica.Absoluto")
-			if _, isImported := t.imports[objStr]; isImported {
-				objStr = strings.ToLower(objStr)
+			for imp := range t.imports {
+				if strings.EqualFold(objStr, imp) {
+					objStr = strings.ToLower(objStr)
+					break
+				}
 			}
-			
+
 			metodoCap := strings.ToUpper(e.Nome[:1]) + e.Nome[1:]
 			return fmt.Sprintf("%s.%s(%s)", objStr, metodoCap, strings.Join(args, ", "))
 		}
