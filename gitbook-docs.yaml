@@ -5,29 +5,25 @@
 # Documentação oficial da linguagem Verbo
 # ==============================================================================
 
+root: "./docs"
+
 site:
   title: "Linguagem Verbo"
   description: "A linguagem de programação transpilada para Go baseada na gramática da norma culta do Português Brasileiro."
   author: "Crom"
   language: "pt-BR"
+  structure:
+    readme: "README.md"
+    summary: "SUMMARY.md"
 
-# Diretório raiz dos arquivos markdown e estrutura principal
-root: "./docs"
-structure:
-  readme: "README.md"
-  summary: "SUMMARY.md"
-
-# Versão do GitBook
 gitbook: "5.x.x"
 
-# Configuração de temas e estilos visuais
 theme:
   colors:
     primary: "#009739"
     secondary: "#FFDF00"
     highlight: "#00ff88"
 
-# Plugins recomendados para renderização
 plugins:
   - prism
   - mermaid
@@ -35,7 +31,6 @@ plugins:
   - anchorjs
   - copy-code-button
 
-# Links externos e repositório
 links:
   sidebar:
     "Repositório GitHub": "https://github.com/crom-org/verbo"
