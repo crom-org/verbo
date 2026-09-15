@@ -1,0 +1,158 @@
+{
+  "name": "verbo",
+  "displayName": "Verbo — Linguagem em Português",
+  "description": "Suporte oficial à linguagem de programação Verbo no Visual Studio Code",
+  "version": "0.1.0",
+  "publisher": "crom-org",
+  "icon": "assets/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/juanxto/crom-verbo"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Linters"
+  ],
+  "keywords": [
+    "verbo",
+    "portugues",
+    "linguagem",
+    "programacao",
+    "brasil"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onLanguage:verbo"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "verbo",
+        "aliases": [
+          "Verbo",
+          "verbo"
+        ],
+        "extensions": [
+          ".vrb"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./assets/icon.png",
+          "dark": "./assets/icon.png"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "verbo",
+        "scopeName": "source.vrb",
+        "path": "./syntaxes/verbo.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "verbo",
+        "path": "./snippets/verbo.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "verbo.executar",
+        "title": "Verbo: Executar Arquivo Atual",
+        "category": "Verbo",
+        "icon": "$(play)"
+      },
+      {
+        "command": "verbo.compilar",
+        "title": "Verbo: Compilar Arquivo Atual",
+        "category": "Verbo",
+        "icon": "$(package)"
+      },
+      {
+        "command": "verbo.verificar",
+        "title": "Verbo: Verificar Sintaxe do Arquivo",
+        "category": "Verbo",
+        "icon": "$(check)"
+      },
+      {
+        "command": "verbo.servir",
+        "title": "Verbo: Iniciar Servidor Web",
+        "category": "Verbo",
+        "icon": "$(server)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "verbo.executar",
+          "group": "navigation",
+          "when": "resourceExtname == .vrb"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "verbo.executar",
+          "group": "1_verbo",
+          "when": "resourceExtname == .vrb"
+        },
+        {
+          "command": "verbo.compilar",
+          "group": "1_verbo",
+          "when": "resourceExtname == .vrb"
+        },
+        {
+          "command": "verbo.verificar",
+          "group": "1_verbo",
+          "when": "resourceExtname == .vrb"
+        },
+        {
+          "command": "verbo.servir",
+          "group": "1_verbo",
+          "when": "resourceExtname == .vrb"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Verbo",
+      "properties": {
+        "verbo.cliPath": {
+          "type": "string",
+          "default": "",
+          "description": "Caminho para o executável do Verbo (se vazio, procura no diretório do projeto 'build/verbo' ou no PATH)."
+        },
+        "verbo.verificarAoSalvar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Executar a verificação de sintaxe automaticamente ao salvar arquivos .vrb."
+        },
+        "verbo.servidorHost": {
+          "type": "string",
+          "default": "127.0.0.1",
+          "description": "Host padrão para o comando 'Verbo: Iniciar Servidor Web'."
+        },
+        "verbo.servidorPorta": {
+          "type": "string",
+          "default": "5000",
+          "description": "Porta padrão para o comando 'Verbo: Iniciar Servidor Web'."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "compile": "tsc -p ./ --noEmit",
+    "watch": "node esbuild.js --watch",
+    "build": "node esbuild.js --production"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.21.0",
+    "typescript": "^5.4.0"
+  }
+}
+

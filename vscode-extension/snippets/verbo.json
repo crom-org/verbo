@@ -1,0 +1,199 @@
+{
+  "Função Principal": {
+    "prefix": "principal",
+    "body": [
+      "Para principal:",
+      "\t${1:Exibir com (\"Olá, Mundo!\").}",
+      ".",
+      "",
+      "principal com ()."
+    ],
+    "description": "Declara e executa a função principal do programa"
+  },
+  "Declaração de Função com Parâmetros": {
+    "prefix": "para_usando",
+    "body": [
+      "Para ${1:NomeDaFuncao} usando (${2:parametro}: ${3|Texto,Inteiro,Decimal,Lógico,Lista|}):",
+      "\t$0",
+      "."
+    ],
+    "description": "Declara uma nova função com parâmetros tipados"
+  },
+  "Declaração de Função sem Parâmetros": {
+    "prefix": "para",
+    "body": [
+      "Para ${1:NomeDaFuncao}:",
+      "\t$0",
+      "."
+    ],
+    "description": "Declara uma nova função sem parâmetros"
+  },
+  "Chamada de Função": {
+    "prefix": "chamada",
+    "body": [
+      "${1:Funcao} com (${2:argumentos})."
+    ],
+    "description": "Chama uma função passando argumentos"
+  },
+  "Constante (Imutável)": {
+    "prefix": "constante",
+    "body": [
+      "${1|O,A|} ${2:nome} é ${3:\"valor\"}."
+    ],
+    "description": "Declara uma constante imutável usando artigo definido (O/A)"
+  },
+  "Variável (Mutável)": {
+    "prefix": "variavel",
+    "body": [
+      "${1|Um,Uma|} ${2:nome} está ${3:0}."
+    ],
+    "description": "Declara uma variável mutável usando artigo indefinido (Um/Uma)"
+  },
+  "Reatribuição de Variável": {
+    "prefix": "atribuir",
+    "body": [
+      "${1:variavel} está ${2:novo_valor}."
+    ],
+    "description": "Altera o valor de uma variável mutável existente"
+  },
+  "Exibir na Tela": {
+    "prefix": "exibir",
+    "body": [
+      "Exibir com (${1:expressao})."
+    ],
+    "description": "Imprime uma mensagem ou valor na saída padrão"
+  },
+  "Condicional Se / Senão": {
+    "prefix": "se_senao",
+    "body": [
+      "Se ${1:condicao} for ${2|igual,menor que,maior que|} ${3:valor}, então:",
+      "\t${4:// código quando verdadeiro}",
+      "Senão:",
+      "\t${5:// código quando falso}",
+      "."
+    ],
+    "description": "Estrutura condicional Se/Senão"
+  },
+  "Condicional Se": {
+    "prefix": "se",
+    "body": [
+      "Se ${1:condicao}, então:",
+      "\t$0",
+      "."
+    ],
+    "description": "Estrutura condicional Se"
+  },
+  "Repetição por Contagem": {
+    "prefix": "repita_vezes",
+    "body": [
+      "Repita ${1:10} vezes:",
+      "\t$0",
+      "."
+    ],
+    "description": "Executa um bloco de código N vezes"
+  },
+  "Repetição sobre Coleção": {
+    "prefix": "repita_cada",
+    "body": [
+      "Repita para cada ${1:item} em ${2:lista}:",
+      "\t$0",
+      "."
+    ],
+    "description": "Itera sobre cada elemento de uma lista"
+  },
+  "Repetição Enquanto": {
+    "prefix": "enquanto",
+    "body": [
+      "Enquanto ${1:contador} for ${2|menor que,maior que,igual|} ${3:limite}:",
+      "\t$0",
+      "."
+    ],
+    "description": "Loop condicional enquanto a expressão for verdadeira"
+  },
+  "Definição de Entidade": {
+    "prefix": "entidade",
+    "body": [
+      "A entidade ${1:Nome} contendo (${2:campo1}: ${3:Texto}, ${4:campo2}: ${5:Inteiro})."
+    ],
+    "description": "Declara uma nova estrutura de dados (Entidade)"
+  },
+  "Instanciação de Entidade": {
+    "prefix": "novo",
+    "body": [
+      "${1|O,Um|} ${2:objeto} é um novo ${3:Entidade} contendo (${4:valores})."
+    ],
+    "description": "Cria uma nova instância de uma entidade"
+  },
+  "Tratamento de Erros (Tente / Capture)": {
+    "prefix": "tente",
+    "body": [
+      "Tente:",
+      "\t${1:// operação suscetível a erros}",
+      "Capture ${2:erro}:",
+      "\t${3:Exibir com (erro).}",
+      "."
+    ],
+    "description": "Bloco de tratamento de exceções"
+  },
+  "Sinalizar Erro / Pânico": {
+    "prefix": "sinalize",
+    "body": [
+      "Sinalize \"${1:Mensagem de erro}\"."
+    ],
+    "description": "Dispara um erro crítico / pânico"
+  },
+  "Criação de Canal": {
+    "prefix": "canal",
+    "body": [
+      "Uma ${1:via} é um Canal de ${2|Texto,Inteiro,Decimal|}."
+    ],
+    "description": "Cria um canal de comunicação concorrente"
+  },
+  "Enviar para Canal": {
+    "prefix": "enviar",
+    "body": [
+      "Enviar ${1:dado} para ${2:canal}."
+    ],
+    "description": "Envia um dado através de um canal"
+  },
+  "Receber de Canal": {
+    "prefix": "receber",
+    "body": [
+      "Receber de ${1:canal}"
+    ],
+    "description": "Lê um valor vindo de um canal"
+  },
+  "Execução Simultânea": {
+    "prefix": "simultaneamente",
+    "body": [
+      "Simultaneamente:",
+      "\t$0",
+      "."
+    ],
+    "description": "Executa declarações em paralelo (goroutines)"
+  },
+  "Servidor Web": {
+    "prefix": "servidor",
+    "body": [
+      "Um ${1:app} está Servidor com (${2|local,externo|}, ${3:8080})."
+    ],
+    "description": "Configura uma instância do servidor web"
+  },
+  "Rota do Servidor": {
+    "prefix": "rota",
+    "body": [
+      "${1:app} rota ${2|GET,POST,PUT,DELETE|} em \"${3:/}\":",
+      "\t${4:Retorne \"Olá!\".}",
+      "."
+    ],
+    "description": "Define uma rota e manipulador HTTP para o servidor"
+  },
+  "Importar Módulo": {
+    "prefix": "incluir",
+    "body": [
+      "Incluir ${1|Texto,Matematica,Arquivo,Html|}."
+    ],
+    "description": "Importa um módulo da biblioteca padrão"
+  }
+}
+
