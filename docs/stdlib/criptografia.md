@@ -1,6 +1,6 @@
 # Módulo Criptografia e Aleatório
 
-Hashes, HMAC, Base64/Hex, AES-256-GCM, cifras didáticas e geração aleatória (segura e estatística).
+Hashes, HMAC, Base64/Base32/Hex, AES-256-GCM, cifras didáticas e geração aleatória (segura e estatística).
 
 ```verbo
 Incluir Criptografia.
@@ -40,11 +40,15 @@ O valido é CompararHash de Criptografia com (hash256, hash256).
 | :--- | :--- |
 | `Base64Codificar` / `Base64Decodificar` | Base64 padrão |
 | `Base64UrlCodificar` / `Base64UrlDecodificar` | Base64 URL-safe (RFC 4648) |
+| `Base32Codificar` / `Base32Decodificar` | Base32 padrão (RFC 4648, alfabeto A-Z e 2-7) |
 | `HexCodificar` / `HexDecodificar` | Hexadecimal |
 
 ```verbo
 O b64 é Base64Codificar de Criptografia com ("Olá Mundo").
-O original é Base64Decodificar de Criptografia com (b64).
+O original_b64 é Base64Decodificar de Criptografia com (b64).
+
+O b32 é Base32Codificar de Criptografia com ("Olá Mundo").
+O original_b32 é Base32Decodificar de Criptografia com (b32).
 ```
 
 ---

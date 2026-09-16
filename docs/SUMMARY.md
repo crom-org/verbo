@@ -28,6 +28,7 @@
 * [HTML Tipado](stdlib/html.md)
 * [Internet (HTTP e Sockets)](stdlib/internet.md)
 * [Criptografia e Aleatório](stdlib/criptografia.md)
+* [Sistema (SO e Processos)](stdlib/sistema.md)
 
 ## Servidor Web
 * [Servidor HTTP Nativo](servidor-web/servidor.md)
