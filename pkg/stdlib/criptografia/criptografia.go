@@ -20,6 +20,7 @@ import (
 	"crypto/sha256"
 	"crypto/sha512"
 	"crypto/subtle"
+	"encoding/base32"
 	"encoding/base64"
 	"encoding/hex"
 	"fmt"
@@ -142,6 +143,30 @@ func HexDecodificar(hexStr string) string {
 	dados, err := hex.DecodeString(hexStr)
 	if err != nil {
 		panic("Erro ao decodificar Hexadecimal: " + err.Error())
+	}
+	return string(dados)
+}
+
+// Base32Codificar converte uma string de texto em sua representação codificada em Base32 padrão (RFC 4648).
+// A saída usa o alfabeto maiúsculo A-Z e dígitos 2-7.
+//
+// Exemplo em Verbo:
+//
+//	O b32 é Base32Codificar de Criptografia com ("Olá Mundo").
+func Base32Codificar(texto string) string {
+	return base32.StdEncoding.EncodeToString([]byte(texto))
+}
+
+// Base32Decodificar decodifica uma string Base32 padrão de volta para texto legível.
+// Lança pânico caso a string de entrada não seja um Base32 válido.
+//
+// Exemplo em Verbo:
+//
+//	O original é Base32Decodificar de Criptografia com (b32).
+func Base32Decodificar(b32 string) string {
+	dados, err := base32.StdEncoding.DecodeString(b32)
+	if err != nil {
+		panic("Erro ao decodificar Base32: " + err.Error())
 	}
 	return string(dados)
 }

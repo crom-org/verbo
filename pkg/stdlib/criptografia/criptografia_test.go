@@ -67,6 +67,35 @@ func TestCodificacao(t *testing.T) {
 	}
 }
 
+func TestBase32(t *testing.T) {
+	// Texto ASCII simples
+	original := "Verbo Linguagem"
+	b32 := Base32Codificar(original)
+	if b32 == "" {
+		t.Fatal("Base32Codificar retornou string vazia")
+	}
+	dec := Base32Decodificar(b32)
+	if dec != original {
+		t.Fatalf("esperava %q após round-trip Base32, obteve %q", original, dec)
+	}
+
+	// Idempotência: codificar vazio → decodificar deve retornar vazio
+	b32Vazio := Base32Codificar("")
+	decVazio := Base32Decodificar(b32Vazio)
+	if decVazio != "" {
+		t.Fatalf("esperava string vazia após round-trip Base32 de string vazia, obteve %q", decVazio)
+	}
+
+	// Base32 inválido deve causar pânico
+	defer func() {
+		r := recover()
+		if r == nil {
+			t.Fatal("esperava pânico ao decodificar Base32 inválido")
+		}
+	}()
+	Base32Decodificar("!!!nao_e_base32!!!") // deve causar pânico
+}
+
 func TestCifrarEDecifrarAES(t *testing.T) {
 	chave := "senha-super-secreta"
 	mensagemOriginal := "Texto confidencial de teste para a BibVerbo."

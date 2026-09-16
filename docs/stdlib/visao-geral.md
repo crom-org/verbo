@@ -15,6 +15,7 @@ Incluir Json.
 Incluir Html.
 Incluir Internet.
 Incluir Criptografia.
+Incluir Sistema.
 ```
 
 O nome do pacote é case-insensitive (`Incluir matematica.` também funciona). O transpiler gera o import Go correspondente:
@@ -64,7 +65,8 @@ Fechar de cliente com ().
 | [Json](json.md) | `pkg/stdlib/json/` | Codificação e decodificação de JSON |
 | [Html](html.md) | `pkg/stdlib/html/` | Páginas, tags, tabelas, links e imagens |
 | [Internet](internet.md) | `pkg/stdlib/internet/` | HTTP, sockets TCP/UDP, DNS |
-| [Criptografia](criptografia.md) | `pkg/stdlib/criptografia/` | Hashes, Base64/Hex, AES-GCM, UUID, aleatório |
+| [Criptografia](criptografia.md) | `pkg/stdlib/criptografia/` | Hashes, Base64/Base32/Hex, AES-GCM, UUID, aleatório |
+| [Sistema](sistema.md) | `pkg/stdlib/sistema/` | Argumentos, variáveis de ambiente, execução de comandos, informações do SO |
 
 ---
 
