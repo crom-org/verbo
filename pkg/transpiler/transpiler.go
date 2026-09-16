@@ -98,25 +98,29 @@ func (t *Transpiler) Transpilar(programa *ast.Programa) (string, error) {
 		if t.usaSync {
 			t.escreverLinha("\t\"sync\"")
 		}
-		for imp := range t.imports {
-			switch strings.ToLower(imp) {
-			case "matematica":
-				t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/matematica\"")
-			case "texto":
-				t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/texto\"")
-			case "arquivo":
-				t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/arquivo\"")
-			case "html":
-				t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/html\"")
-			case "internet":
-				t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/internet\"")
-			case "criptografia":
-				t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/criptografia\"")
-			default:
-				// Fallback simplificado se não achar na BibVerbo: import direto
-				t.escreverLinha(fmt.Sprintf("\t%q", strings.ToLower(imp)))
-			}
+for imp := range t.imports {
+		switch strings.ToLower(imp) {
+		case "matematica":
+			t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/matematica\"")
+		case "texto":
+			t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/texto\"")
+		case "arquivo":
+			t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/arquivo\"")
+		case "html":
+			t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/html\"")
+		case "internet":
+			t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/internet\"")
+		case "criptografia":
+			t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/criptografia\"")
+		case "json":
+			t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/json\"")
+		case "csv":
+			t.escreverLinha("\t\"github.com/juanxto/crom-verbo/pkg/stdlib/csv\"")
+		default:
+			// Fallback simplificado se não achar na BibVerbo: import direto
+			t.escreverLinha(fmt.Sprintf("\t%q", strings.ToLower(imp)))
 		}
+	}
 		t.escreverLinha(")")
 	} else {
 		t.escreverLinha("import \"fmt\"")
