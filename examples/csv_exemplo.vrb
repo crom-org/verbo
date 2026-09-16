@@ -1,0 +1,45 @@
+// Exemplo de uso do módulo Csv na BibVerbo
+Incluir Csv.
+Incluir Arquivo.
+
+Exibir "--- 1. Parsear CSV de uma string ---".
+O texto_csv é "nome,idade,cidade\nAna,30,Recife\nBeto,25,São Paulo\nCarla,28,Curitiba".
+O linhas é Ler de Csv com (texto_csv).
+Exibir "Linhas parseadas:".
+Exibir linhas.
+
+Exibir "--- 2. Escrever lista como string CSV ---".
+O cabecalho é ["produto", "preco", "estoque"].
+O item1 é ["Café", "12.50", "100"].
+O item2 é ["Chá", "8.00", "200"].
+O item3 é ["Suco", "6.75", "150"].
+O tabela é [cabecalho, item1, item2, item3].
+
+O csv_gerado é Escrever de Csv com (tabela).
+Exibir "CSV gerado:".
+Exibir csv_gerado.
+
+Exibir "--- 3. Formatar (alias de Escrever) ---".
+O dados é [["linguagem", "versao"], ["Verbo", "1.0"], ["Go", "1.22"]].
+O formatado é Formatar de Csv com (dados).
+Exibir "CSV formatado:".
+Exibir formatado.
+
+Exibir "--- 4. Gravar e ler arquivo CSV no disco ---".
+O registros é [["id", "nome", "nota"], ["1", "Ana", "9.5"], ["2", "Beto", "8.0"], ["3", "Carla", "9.8"]].
+EscreverArquivo de Csv com ("notas.csv", registros).
+Exibir "Arquivo 'notas.csv' gravado com sucesso.".
+
+O conteudo é LerArquivo de Csv com ("notas.csv").
+Exibir "Arquivo 'notas.csv' lido:".
+Exibir conteudo.
+
+Exibir "--- 5. Tratamento de erro ao ler arquivo inexistente ---".
+Tente:
+    O ausente é LerArquivo de Csv com ("inexistente.csv").
+    Exibir ausente.
+Capture erro:
+    Exibir "Erro capturado ao ler arquivo CSV:".
+    Exibir erro.
+.
+

@@ -10,6 +10,8 @@ A **BibVerbo** é a biblioteca padrão oficial. Os módulos vivem em `pkg/stdlib
 Incluir Matematica.
 Incluir Texto.
 Incluir Arquivo.
+Incluir Csv.
+Incluir Json.
 Incluir Html.
 Incluir Internet.
 Incluir Criptografia.
@@ -58,6 +60,8 @@ Fechar de cliente com ().
 | [Matematica](matematica.md) | `pkg/stdlib/matematica/` | Absoluto, potência, raiz, teto, piso, min/máx |
 | [Texto](texto.md) | `pkg/stdlib/texto/` | Tamanho, maiúsculas, contém, dividir, substituir |
 | [Arquivo](arquivo.md) | `pkg/stdlib/arquivo/` | Ler e escrever arquivos de texto |
+| [Csv](csv.md) | `pkg/stdlib/csv/` | Ler e escrever dados no formato CSV |
+| [Json](json.md) | `pkg/stdlib/json/` | Codificação e decodificação de JSON |
 | [Html](html.md) | `pkg/stdlib/html/` | Páginas, tags, tabelas, links e imagens |
 | [Internet](internet.md) | `pkg/stdlib/internet/` | HTTP, sockets TCP/UDP, DNS |
 | [Criptografia](criptografia.md) | `pkg/stdlib/criptografia/` | Hashes, Base64/Hex, AES-GCM, UUID, aleatório |

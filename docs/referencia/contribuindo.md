@@ -37,9 +37,9 @@ make test
 | `pkg/parser/` | Analisador sintático descendente recursivo e validação estrutural. |
 | `pkg/ast/` | Definição das interfaces e tipos de nós da Árvore de Sintaxe Abstrata. |
 | `pkg/transpiler/` | Transpilador AST → Go e gerador de código. |
-| `pkg/stdlib/` | Biblioteca padrão oficial (BibVerbo: `matematica`, `texto`, `arquivo`, `html`, `internet`, `criptografia`). |
+| `pkg/stdlib/` | Biblioteca padrão oficial (BibVerbo: `matematica`, `texto`, `arquivo`, `csv`, `json`, `html`, `internet`, `criptografia`). |
 | `examples/` | Catálogo de programas `.vrb` de demonstração e testes de usuário. |
-| `docs/` | Documentação oficial compatível com GitBook. |
+| `docs/` | Documentação oficial do projeto. |
 | `vscode-extension/` | Extensão oficial para o Visual Studio Code. |
 
 ---

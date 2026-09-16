@@ -1,8 +1,5 @@
 # 🏗️ Arquitetura do Compilador Verbo
 
-> **Nota de Navegação**: Esta documentação agora faz parte da estrutura modular do GitBook. Você pode consultar a versão atualizada e navegável em [`referencia/arquitetura.md`](referencia/arquitetura.md).
-
----
 
 ## Visão Geral
 

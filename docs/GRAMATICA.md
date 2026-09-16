@@ -1,8 +1,5 @@
 # 📐 Gramática Formal da Linguagem Verbo
 
-> **Nota de Navegação**: Esta documentação agora faz parte da estrutura modular do GitBook. Você pode consultar a versão atualizada e navegável em [`referencia/gramatica.md`](referencia/gramatica.md).
-
----
 
 ## Produções Principais (EBNF)
 

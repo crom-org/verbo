@@ -1,0 +1,53 @@
+// Exemplo de uso do módulo Json na BibVerbo
+Incluir Json.
+
+Exibir "--- 1. Codificar valores como JSON ---".
+O nome é "Verbo".
+O versao é 1.
+O ativo é Verdadeiro.
+
+O texto é Codificar de Json com (nome).
+Exibir "String codificada:".
+Exibir texto.
+
+O texto_num é Codificar de Json com (versao).
+Exibir "Número codificado:".
+Exibir texto_num.
+
+Exibir "--- 2. Decodificar JSON e acessar campos ---".
+O json_usuario é "{\"nome\":\"Ana\",\"idade\":30,\"ativo\":true}".
+O usuario é Decodificar de Json com (json_usuario).
+
+O nome_usuario é ObterCampo de Json com (usuario, "nome").
+O idade_usuario é ObterCampo de Json com (usuario, "idade").
+Exibir "Nome: " + nome_usuario.
+Exibir "Idade:".
+Exibir idade_usuario.
+
+Exibir "--- 3. Listar chaves de um objeto JSON ---".
+O json_config é "{\"host\":\"localhost\",\"porta\":8080,\"debug\":false}".
+O config é Decodificar de Json com (json_config).
+O chaves é ListaChaves de Json com (config).
+Exibir "Chaves da configuração:".
+Exibir chaves.
+
+Exibir "--- 4. Tamanho de objeto e lista JSON ---".
+O json_lista é "[10,20,30,40,50]".
+O lista é Decodificar de Json com (json_lista).
+O qtd é Tamanho de Json com (lista).
+Exibir "Elementos na lista:".
+Exibir qtd.
+
+O qtd_config é Tamanho de Json com (config).
+Exibir "Campos no objeto config:".
+Exibir qtd_config.
+
+Exibir "--- 5. Tratamento de erro em JSON inválido ---".
+Tente:
+    O invalido é Decodificar de Json com ("isso nao e json!!!").
+    Exibir invalido.
+Capture erro:
+    Exibir "Erro capturado ao decodificar JSON inválido:".
+    Exibir erro.
+.
+

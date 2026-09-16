@@ -1,8 +1,5 @@
 # 📚 Galeria de Exemplos — Linguagem Verbo
 
-> **Nota de Navegação**: Esta documentação agora faz parte da estrutura modular do GitBook. Você pode consultar a versão atualizada e navegável em [`referencia/exemplos.md`](referencia/exemplos.md).
-
----
 
 ## Catálogo de Exemplos Disponíveis
 

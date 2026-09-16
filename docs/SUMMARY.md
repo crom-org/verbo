@@ -23,6 +23,8 @@
 * [Matemática](stdlib/matematica.md)
 * [Texto e Strings](stdlib/texto.md)
 * [Arquivo (Entrada e Saída)](stdlib/arquivo.md)
+* [CSV](stdlib/csv.md)
+* [JSON](stdlib/json.md)
 * [HTML Tipado](stdlib/html.md)
 * [Internet (HTTP e Sockets)](stdlib/internet.md)
 * [Criptografia e Aleatório](stdlib/criptografia.md)
